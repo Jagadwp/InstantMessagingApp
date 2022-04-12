@@ -64,7 +64,7 @@ public class MessageThread extends Thread {
                 	this.returnMessageToSender(message.getSender(), onlineUserList, "Private");
                 }
             } catch (IOException e) {
-                System.out.println("Connection Lost with " + this.username);
+                System.out.println("You're no longer connected with " + this.username);
                 break;
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
