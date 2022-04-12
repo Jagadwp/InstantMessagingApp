@@ -1,4 +1,4 @@
-package app.server;
+package com.server;
 
 public class Server {
 
