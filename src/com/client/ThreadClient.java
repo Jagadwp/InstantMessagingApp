@@ -18,12 +18,12 @@ public class ThreadClient extends Thread{
                 Message message = (Message) ois.readObject();
  
                 if (message.getRequest().equals("1")) {
-                    System.out.println("Incoming message from \"" + message.getSender() + "\"");
+                    System.out.println("Incoming message from "+  "\"" + message.getSender() + "\"");
                     System.out.println(message.getSender() + " : " + message.getText());
                     System.out.println("---");
                 }
                 else if (message.getRequest().equals("2")) {
-                    System.out.println( "\"" + message.getSender() + "\" broadcasted a message");
+                    System.out.println("Broadcasted message from " + "\"" + message.getSender() + "\"");
                     System.out.println(message.getSender() + " : " + message.getText());
                     System.out.println("---");
                 }

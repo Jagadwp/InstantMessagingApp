@@ -17,7 +17,7 @@ import com.server.ServerThread;
 public class Client {
 
 	public static void main(String[] args) {
-		System.out.println("Client is Active");
+		System.out.println("Client is Running");
         try {
             Socket socket = new Socket("127.0.0.1", 8080);
  
@@ -32,12 +32,12 @@ public class Client {
             
             Message initialMsg = new Message();
             initialMsg.setText(username);
-			
+
             ous.writeObject(initialMsg);
             ous.flush();
             
             while(true) {
-                System.out.println("Request Features:");
+                System.out.println("\nRequest Features:");
                 System.out.println("1. Private Message");
                 System.out.println("2. Broadcast Message");	
                 System.out.println("3. Show Online Users");
@@ -55,7 +55,7 @@ public class Client {
                 }
                 
                 if (req.equals("1") || req.equals("2")) {                 
-                    System.out.println("Type your message: \n>>");
+                    System.out.println("Type your message:");
                     String text = reader.readLine();
                     message.setText(text);
                 }

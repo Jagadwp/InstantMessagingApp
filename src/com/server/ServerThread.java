@@ -15,32 +15,32 @@ public class ServerThread extends Thread {
 	    public ServerThread() {
 	        try {
 	            this.clientList = new Hashtable<String, MessageThread>();
-	            this.server = new ServerSocket(9000);
+	            this.server = new ServerSocket(8080);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	    }
 
 	    public void run() {
-	    	System.out.println("Server Alive");
+	    	System.out.println("Server is Running");
 	        // listen for a new connection
 	        while(true) {
 	            try {
 	                // accept a new connection
 	                Socket socket = this.server.accept();
 
-	                // create a new WorkerThread
-	                MessageThread wt = new MessageThread(socket, this);
+	                // create a new MessageThread
+	                MessageThread mt = new MessageThread(socket, this);
 
 	                // start the new thread
-	                wt.start();
+	                mt.start();
 
 	                // store the new thread to the hash table
 	                String clientId = socket.getInetAddress().getHostAddress() + ":" + socket.getPort();
 	                
-	                System.out.println("Connection Established with " + clientId);
+	                System.out.println("Connection established with: " + clientId);
 	                
-	                this.clientList.put(clientId, wt);
+	                this.clientList.put(clientId, mt);
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
@@ -53,10 +53,10 @@ public class ServerThread extends Thread {
 	        while (clientKeys.hasMoreElements()) {
 	            String clientId = clientKeys.nextElement();
 
-	            MessageThread wt = this.clientList.get(clientId);
+	            MessageThread mt = this.clientList.get(clientId);
 
 	            // send the message
-	            wt.send(message);
+	            mt.send(message);
 	        }
 
 	    }
@@ -67,11 +67,11 @@ public class ServerThread extends Thread {
 	        while (clientKeys.hasMoreElements()) {
 	            String clientId = clientKeys.nextElement();
 
-	            MessageThread wt = this.clientList.get(clientId);
+	            MessageThread mt = this.clientList.get(clientId);
 
 	            // send the message to specified username
-	            if(wt.getUsername().equals(username)) {
-	            	wt.send(message);
+	            if(mt.getUsername().equals(username)) {
+	            	mt.send(message);
 	            	break;
 	            }
 	        }
@@ -83,10 +83,10 @@ public class ServerThread extends Thread {
 	        while (clientKeys.hasMoreElements()) {
 	            String clientId = clientKeys.nextElement();
 
-	            MessageThread wt = this.clientList.get(clientId);
+	            MessageThread mt = this.clientList.get(clientId);
 
 	            // if found return true
-	            if(wt.getUsername().equals(username)) {
+	            if(mt.getUsername().equals(username)) {
 	            	return true;
 	            }
 	        }
@@ -100,25 +100,27 @@ public class ServerThread extends Thread {
 	        while (clientKeys.hasMoreElements()) {
 	            String clientId = clientKeys.nextElement();
 
-	            MessageThread wt = this.clientList.get(clientId);
+	            MessageThread mt = this.clientList.get(clientId);
 
-	            if (wt.getUsername().equals(username)) { // Username found
+	            if (mt.getUsername().equals(username)) { // Username found
 	            	this.clientList.remove(clientId);
 	            	return;
 	            }
 	        }
 	    }
-	    
-	    public String getOnlineUsers() {
+
+		public String getOnlineUsers() {
+			System.out.println("masuk on");
 	    	String onlineUsers = "\n---Online Users---\n";
 	    	// iterate through all clients
 	    	Enumeration<String> clientKeys = this.clientList.keys();
 	        while (clientKeys.hasMoreElements()) {
-	            String clientId = clientKeys.nextElement();
-
-	            MessageThread wt = this.clientList.get(clientId);
-
-	            onlineUsers += (wt.getUsername() + "\n");
+				String clientId = clientKeys.nextElement();
+				int count = 1;
+	            MessageThread mt = this.clientList.get(clientId);
+				
+	            onlineUsers += (count + ". " + mt.getUsername() + "\n");
+				count++;
 	        }
 	        return onlineUsers;
 	    }
