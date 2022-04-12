@@ -39,16 +39,16 @@ public class MessageThread extends Thread {
             try {
                 Message message = (Message) this.ois.readObject();
                 if (message.getRequest().equals("Broadcast")) { 
-                	System.out.println("Got Broadcast from " + message.getSender() + " with message:\n"+message.getText());
+                	System.out.println("Broadcast from " + message.getSender() + " with message:\n"+message.getText());
                 	this.serverThread.sendToAll(message);
                 }
                 else if (message.getRequest().equals("Online Users")) { 
-                	System.out.println("Got Online Users Request from " + message.getSender());
+                	System.out.println("Online users request from " + message.getSender());
                 	String onlineUserList = this.serverThread.getOnlineUsers();
                 	this.returnMessageToSender(message.getSender(), onlineUserList, "Private");
                 }
                 else if (message.getRequest().equals("Private")) { 
-                	System.out.println("Got private message from " + message.getSender() + " to " + message.getReceiver() + " with message:\n" + message.getText());
+                	System.out.println("private message from " + message.getSender() + " to " + message.getReceiver() + " with message:\n" + message.getText());
                 	if (this.serverThread.isExist(message.getReceiver())) { 
                 		this.serverThread.sendPrivately(message, message.getReceiver());                		
                 	}
@@ -58,7 +58,7 @@ public class MessageThread extends Thread {
                 	}
                 }
             } catch (IOException e) {
-                System.out.println("Connection Lost with " + this.username);
+                System.out.println("You're no longer connected with " + this.username);
                 break;
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
