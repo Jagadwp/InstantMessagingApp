@@ -14,9 +14,9 @@ public class Message implements Serializable {
     
     /*
      * Request Type List:
-     * "Online Users"	--> Request a list of online users
-     * "Private"		--> Send message privately
-     * "Broadcast"		--> Send message as a broadcast to all online users
+     * "1"		--> Send message privately
+     * "2"		--> Send message as a broadcast to all online users
+     * "3"	--> Request a list of online users
      */
 
     public Message(String request) {

@@ -48,7 +48,7 @@ public class MessageThread extends Thread {
                 	}
                 	else { 
                 		String response = "User " + message.getReceiver() + " not found";
-                		this.returnMessageToSender(message.getSender(), response, "Private");
+                		this.returnMessageToSender(message.getSender(), response, "1");
                 	}
                 }
                 // Broadcast
@@ -61,7 +61,7 @@ public class MessageThread extends Thread {
                 else if (message.getRequest().equals("3")) { 
                 	System.out.println("Receive Online Users Request from " + message.getSender());
                 	String onlineUserList = this.st.getOnlineUsers();
-                	this.returnMessageToSender(message.getSender(), onlineUserList, "Private");
+                	this.returnMessageToSender(message.getSender(), onlineUserList, "1");
                 }
             } catch (IOException e) {
                 System.out.println("You're no longer connected with " + this.username);
@@ -79,7 +79,7 @@ public class MessageThread extends Thread {
         } catch (IOException e) {
             this.st.removeClient(message.getReceiver());
             String response = "User " + message.getReceiver() + " is Disconnected";
-            this.returnMessageToSender(message.getSender(), response, "Private");
+            this.returnMessageToSender(message.getSender(), response, "1");
         }
     }
     
@@ -96,7 +96,6 @@ public class MessageThread extends Thread {
     }
     
     public void returnMessageToSender(String sender, String text, String request) {
-        System.out.println("masuk return: " + sender + "-" + text + "-" + request);
     	Message message = new Message(request);
     	message.setSender("Remote Server");
     	message.setReceiver(sender);

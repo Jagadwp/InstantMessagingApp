@@ -110,17 +110,15 @@ public class ServerThread extends Thread {
 	    }
 
 		public String getOnlineUsers() {
-			System.out.println("masuk on");
-	    	String onlineUsers = "\n---Online Users---\n";
+	    	String onlineUsers = "\nOnline Users:n";
 	    	// iterate through all clients
 	    	Enumeration<String> clientKeys = this.clientList.keys();
+			int count = 1;
 	        while (clientKeys.hasMoreElements()) {
 				String clientId = clientKeys.nextElement();
-				int count = 1;
 	            MessageThread mt = this.clientList.get(clientId);
 				
-	            onlineUsers += (count + ". " + mt.getUsername() + "\n");
-				count++;
+	            onlineUsers += (count++ + ". " + mt.getUsername() + "\n");
 	        }
 	        return onlineUsers;
 	    }
