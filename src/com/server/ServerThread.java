@@ -1,6 +1,6 @@
-package app.server;
+package com.server;
 
-import app.message.Message;
+import com.message.Message;
 
 import java.io.IOException;
 import java.net.ServerSocket;
